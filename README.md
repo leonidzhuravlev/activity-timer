@@ -2,6 +2,13 @@
 
 A beautiful and effective time tracking application with a premium glassmorphism design. Track your work sessions and measure your productivity with an elegant, animated interface.
 
+## 🚀 Quick Start
+
+**🌐 Try it online:** [https://leonidzhuravlev.github.io/activity-timer](https://leonidzhuravlev.github.io/activity-timer)
+
+**📥 Download for offline use:** [Latest Release](https://github.com/leonidzhuravlev/activity-timer/releases/latest) - Download `index.html` and open it in any browser!
+
+
 ## ✨ Features
 
 - **Work Time Tracking**: Start and stop your work sessions with a single click
