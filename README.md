@@ -59,6 +59,71 @@ npm run build
 
 The build will create a single, self-contained HTML file in the `dist` folder that you can open directly in any browser without needing a server.
 
+## 📁 Project Structure Explained
+
+### For Development (Source Code)
+
+```
+src/                    ← Your source code
+├── Application.jsx     ← Main component
+├── components/         ← UI components (buttons, timers, history)
+├── hooks/              ← Timer logic
+├── index.css          ← Styles and animations
+└── main.jsx           ← Entry point
+
+index.html             ← HTML template for development
+package.json           ← Dependencies list
+vite.config.js         ← Build configuration
+node_modules/          ← Installed packages
+```
+
+**Purpose:** This is your "workshop" where you can:
+- ✏️ Edit code
+- 🎨 Change design
+- ➕ Add features
+- 🐛 Fix bugs
+- 🔄 Run `npm run dev` for testing
+
+### For Distribution (Built Product)
+
+```
+dist/
+└── index.html         ← Single-file application (~154 KB)
+```
+
+**Purpose:** This is the final product created by `npm run build`.
+
+### 🎯 Simple Analogy
+
+Think of it like baking a cake:
+- **Source files** (`src/`, `package.json`, etc.) = recipe, ingredients, kitchen
+- **`dist/index.html`** = the finished cake
+
+You don't give your friend flour and eggs — you give them the finished cake!
+
+### 📤 Sharing the Application
+
+**Can I share just the `dist/index.html` file?**
+
+**Yes, absolutely!** This single file contains everything:
+- ✅ All JavaScript code (React, timer logic)
+- ✅ All CSS styles (animations, glassmorphism)
+- ✅ All dependencies
+
+Your friend can:
+1. Open it by double-clicking in any browser
+2. Use the timer immediately
+3. Their history will be saved in their browser (not in the file)
+
+**How to share:**
+- Email, Telegram, WhatsApp
+- USB drive
+- Cloud storage (Google Drive, Dropbox)
+- Or just send them the GitHub link!
+
+**Important:** If you delete the source files, you won't be able to modify the app anymore, but `dist/index.html` will continue to work for everyone who has it.
+
+
 ## 🎯 Usage
 
 1. **Start Work Day**: Click the timer button to begin tracking your work session
