@@ -6,4 +6,13 @@ import { viteSingleFile } from "vite-plugin-singlefile"
 export default defineConfig({
   plugins: [react(), viteSingleFile()],
   base: './',
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
+  }
 })
