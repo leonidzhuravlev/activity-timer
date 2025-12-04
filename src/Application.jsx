@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTimer } from './hooks/useTimer';
+import { usePersistence } from './hooks/usePersistence';
 import Controls from './components/Controls';
 import Summary from './components/Summary';
 import History from './components/History';
 
 export function Application() {
-    const [workStatus, setWorkStatus] = useState('idle'); // idle, working, finished
+    const [workStatus, setWorkStatus] = useState('idle'); // idle, working, paused, finished
     const [effectiveStatus, setEffectiveStatus] = useState('idle'); // idle, active
     const [view, setView] = useState('tracker'); // tracker, history
     const [history, setHistory] = useState([]);
@@ -13,25 +14,40 @@ export function Application() {
     const workTimer = useTimer();
     const effectiveTimer = useTimer();
 
-    useEffect(() => {
-        const savedHistory = localStorage.getItem('workHistory');
-        if (savedHistory) {
-            setHistory(JSON.parse(savedHistory));
-        }
-    }, []);
+    const { clearState } = usePersistence(
+        workStatus,
+        setWorkStatus,
+        effectiveStatus,
+        setEffectiveStatus,
+        workTimer,
+        effectiveTimer,
+        setHistory
+    );
 
     const handleWorkToggle = () => {
         if (workStatus === 'idle') {
             setWorkStatus('working');
             workTimer.start();
         } else if (workStatus === 'working') {
-            setWorkStatus('finished');
+            setWorkStatus('paused');
             workTimer.stop();
             if (effectiveStatus === 'active') {
-                setEffectiveStatus('idle');
                 effectiveTimer.stop();
             }
+        } else if (workStatus === 'paused') {
+            setWorkStatus('working');
+            workTimer.start();
+            if (effectiveStatus === 'active') {
+                effectiveTimer.start();
+            }
         }
+    };
+
+    const handleFinish = () => {
+        setWorkStatus('finished');
+        workTimer.stop();
+        effectiveTimer.stop();
+        setEffectiveStatus('idle'); // Reset effective status for next time, but keep timer value for summary
     };
 
     const handleEffectiveToggle = () => {
@@ -39,7 +55,7 @@ export function Application() {
             setEffectiveStatus('active');
             effectiveTimer.start();
         } else {
-            setEffectiveStatus('idle');
+            setEffectiveStatus('idle'); // Just mark as idle, don't reset timer
             effectiveTimer.stop();
         }
     };
@@ -64,10 +80,11 @@ export function Application() {
         setEffectiveStatus('idle');
         workTimer.reset();
         effectiveTimer.reset();
+        clearState();
     };
 
     return (
-        <div className={`app-container ${workStatus === 'working' ? 'working-mode' : ''}`}>
+        <div className={`app-container ${workStatus === 'working' ? 'working-mode' : ''} ${effectiveStatus === 'active' ? 'effective-mode' : ''}`}>
             <h1>Effective Time Tracker</h1>
 
             {view === 'history' ? (
@@ -84,6 +101,7 @@ export function Application() {
                             effectiveStatus={effectiveStatus}
                             onWorkToggle={handleWorkToggle}
                             onEffectiveToggle={handleEffectiveToggle}
+                            onFinish={handleFinish}
                             workTime={workTimer.elapsedTime}
                             effectiveTime={effectiveTimer.elapsedTime}
                         />
