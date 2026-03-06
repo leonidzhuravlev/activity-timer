@@ -11,14 +11,27 @@ A beautiful and effective time tracking application with a premium glassmorphism
 
 ## ✨ Features
 
-- **Work Time Tracking**: Start and stop your work sessions with a single click
-- **Effective Time Measurement**: Track your actual productive time separately
+### 💾 Core Functionality
+- **State Persistence**: Your timers automatically save and restore - close the tab or refresh the page and continue right where you left off
+- **Smart Time Drift Correction**: Timer catches up for time elapsed while the page was closed
+- **Pause/Resume Workflow**: Take breaks without ending your day! Pause your work session and resume when ready
+- **Work Time Tracking**: Start, pause, resume, and finish your work sessions
+- **Effective Time Measurement**: Track your actual productive time separately with the lightning button
 - **Session History**: View all your past work sessions with detailed statistics
-- **Data Persistence**: All your data is saved locally in your browser
-- **Beautiful UI**: Premium glassmorphism design with smooth animations
-- **Visual Feedback**: Blue glow effect during active work sessions
 - **Efficiency Metrics**: Automatically calculates your productivity percentage
-- **Single-File Build**: Can be run as a standalone HTML file
+
+### 🎨 Premium UI/UX
+- **Beautiful Glassmorphism Design**: Modern, premium aesthetic with smooth animations
+- **Effective Mode Glow**: Entire card glows green when you're in productive mode for better visual feedback
+- **Enhanced Gradients**: Dynamic and vibrant background with improved depth
+- **Smart Button Icons**: Play/Pause/Stop icons for intuitive workflow control
+- **Pulse Animations**: Visual feedback for active and paused states
+- **Responsive Layout**: Works perfectly on desktop and mobile
+
+### 🛠️ Technical
+- **Single-File Build**: Can be run as a standalone HTML file (~157 KB)
+- **LocalStorage Persistence**: All data saved locally in your browser
+- **Clean Architecture**: Well-structured code with custom hooks
 
 ## 🎨 Design Highlights
 
@@ -74,7 +87,7 @@ The build will create a single, self-contained HTML file in the `dist` folder th
 src/                    ← Your source code
 ├── Application.jsx     ← Main component
 ├── components/         ← UI components (buttons, timers, history)
-├── hooks/              ← Timer logic
+├── hooks/              ← Custom hooks (useTimer, usePersistence)
 ├── index.css          ← Styles and animations
 └── main.jsx           ← Entry point
 
@@ -133,11 +146,18 @@ Your friend can:
 
 ## 🎯 Usage
 
-1. **Start Work Day**: Click the timer button to begin tracking your work session
-2. **Toggle Effective Time**: Use the lightning button to track your focused, productive time
-3. **Finish Work Day**: Stop the timer when you're done working
-4. **View History**: Click the "History" button to see all your past sessions
-5. **Start New Day**: Reset and begin a fresh work session
+1. **Start Work Day**: Click the ▶️ Play button to begin tracking your work session
+2. **Pause When Needed**: Click the ⏸️ Pause button to take a break - the timer stops but your session is saved
+3. **Resume Work**: Click the ▶️ Play button again to continue your work session
+4. **Toggle Effective Time**: Use the ⚡ Lightning button to track your focused, productive time (only available when working)
+5. **Finish Work Day**: Click the ⏹️ Stop button when you're done - view your summary and efficiency
+6. **View History**: Click the "History" button to see all your past sessions
+7. **Start New Day**: Click "Start New Day" to reset and begin a fresh work session
+
+### 💡 Pro Tips
+- Your session automatically saves - feel free to close the browser tab!
+- If you accidentally close the tab while working, just reopen it - the timer will have continued counting
+- The green glow indicates you're in "Effective" mode - maximum productivity! ⚡
 
 ## 🛠️ Tech Stack
 
