@@ -79,11 +79,38 @@ npm run build
 
 The build will create a single, self-contained HTML file in the `dist` folder that you can open directly in any browser without needing a server.
 
+## 🚀 Deployment & CI/CD
+
+The project includes an automated deployment pipeline to **GitHub Pages** powered by GitHub Actions ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+
+### How Deployment Works
+
+- **Triggers**:
+  - **Push to `main`**: Any commit or merged pull request to the `main` branch automatically triggers deployment.
+  - **Manual Trigger (`workflow_dispatch`)**: Can be initiated on-demand from the GitHub Actions tab.
+- **Workflow Pipeline**:
+  1. **Build Job (`ubuntu-latest`)**:
+     - Checks out the repository (`actions/checkout@v4`).
+     - Sets up **Node.js 18** with npm dependency caching (`actions/setup-node@v4`).
+     - Runs clean dependency installation via `npm ci`.
+     - Executes `npm run build` to generate the self-contained single-file build in `./dist`.
+     - Uploads the `./dist` folder as a Pages artifact (`actions/upload-pages-artifact@v3`).
+  2. **Deploy Job (`deploy-pages`)**:
+     - Waits for the build job to finish (`needs: build`).
+     - Deploys the artifact to **GitHub Pages** using `actions/deploy-pages@v4`.
+     - Publishes the live application to the GitHub Pages environment.
+- **Permissions & Concurrency**:
+  - Configured with `pages: write` and `id-token: write` permissions.
+  - Uses concurrency group `"pages"` with `cancel-in-progress: false` to guarantee safe, sequential releases.
+
 ## 📁 Project Structure Explained
 
 ### For Development (Source Code)
 
 ```
+.github/
+└── workflows/
+    └── deploy.yml     ← CI/CD deployment pipeline (GitHub Pages)
 src/                    ← Your source code
 ├── Application.jsx     ← Main component
 ├── components/         ← UI components (buttons, timers, history)
@@ -166,6 +193,7 @@ Your friend can:
 - **CSS3**: Styling with custom properties and animations
 - **LocalStorage API**: Data persistence
 - **vite-plugin-singlefile**: Single-file production builds
+- **GitHub Actions & GitHub Pages**: Automated CI/CD pipeline and static hosting
 
 ## 📊 Data Storage
 
